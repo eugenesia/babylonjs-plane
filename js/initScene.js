@@ -74,6 +74,9 @@ var initScene = function () {
 
   // Ship.
   ship = new Ship(1, scene);
+
+  // Generate a box in front of the ship every 0.1 seconds.
+  setInterval(box, 100);
 };
 
 
@@ -113,5 +116,21 @@ var box = function () {
   b.position.x = randomX;
   b.position.y = b.scaling.y/2;
   b.position.z = randomZ;
+
+  // Create a new ActionManager for our building in order to use Actions.
+  b.actionManager = new BABYLON.ActionManager(scene);
+
+  // The trigger is OnIntersectionEnterTrigger.
+  var trigger = {
+    // Kind of trigger used.
+    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+    // Object this building will collide with - the ship.
+    parameter: ship,
+  };
+
+  // Our first action.
+  // Params: trigger, object to modify, attribute of object to modify.
+  var sba = new BABYLON.SwitchBooleanAction(trigger, ship, 'killed');
+  b.actionManager.registerAction(sba);
 };
 
