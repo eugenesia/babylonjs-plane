@@ -33,3 +33,36 @@ Ship.prototype = Object.create(BABYLON.Mesh.prototype);
 // And its contructor is the Ship function described above.
 Ship.prototype.constructor = Ship;
 
+// Move ship on keypress.
+// Private method - starts with underscore.
+Ship.prototype._initMovement = function () {
+  // When a key is pressed, set the movement.
+  var onKeyDown = function (evt) {
+    // To the left.
+    if (evt.keyCode == 37) {
+      ship.moveLeft = true;
+      ship.moveRight = false;
+    } else if (evt.keyCode == 39) {
+      // To the right.
+      ship.moveLeft = false;
+      ship.moveRight = true;
+    }
+  };
+
+  // On key up, reset movement.
+  var onKeyUp = function (evt) {
+    ship.moveLeft = false;
+    ship.moveRight = false;
+  };
+
+  // Register events with the right Babylon function.
+  // Note: To unregister, use BABYLON.Tools.UnregisterTopRootEvents
+  BABYLON.Tools.RegisterTopRootEvents([{
+    name: 'keydown',
+    handler: onKeyDown,
+  }, {
+    name: 'keyup',
+    handler: onKeyUp,
+  }]);
+};
+
