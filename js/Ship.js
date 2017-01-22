@@ -29,6 +29,9 @@ var Ship = function(size, scene) {
 
   // Initialise movement on keypress.
   this._initMovement();
+
+  // Update ammo label when needed.
+  this._initLabelUpdate();
 }
 
 // Our object is a BABYLON.Mesh
@@ -80,5 +83,25 @@ Ship.prototype.move = function () {
     ship.position.x += -1;
     camera.position.x += -1;
   }
+};
+
+
+// Send the event that ammo is updated.
+Ship.prototype.sendEvent = function () {
+  var e = new Event('ammoUpdated');
+  window.dispatchEvent(e);
+};
+
+// Create event hook.
+Ship.prototype._initLabelUpdate = function () {
+  // Update the HTML part.
+  var updateAmmoLabel = function () {
+    document.getElementById('ammoLabel').innerHTML = 'Ammo : ' + ship.ammo;
+  };
+
+  BABYLON.Tools.RegisterTopRootEvents([{
+    name: 'ammoUpdated',
+    handler: updateAmmoLabel,
+  }]);
 };
 
