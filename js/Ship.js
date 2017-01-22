@@ -12,7 +12,20 @@ var Ship = function(size, scene) {
   // Apply the box shape to our mesh.
   vd.applyToMesh(this, false);
 
-  // To be continued...
+  // Our ship is all fresh (for now).
+  this.killed = false;
+  // It has 3 bullets to destroy buildings.
+  this.ammo = 3;
+
+  // Its position is (0,0) and a little above the ground.
+  this.position.x = 0;
+  this.position.z = 0;
+  this.position.y = size/2;
+
+  // Movement attributes.
+  this.speed = 3;
+  this.moveLeft = false;
+  this.moveRight = false;
 }
 
 // Our object is a BABYLON.Mesh
