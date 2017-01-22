@@ -52,6 +52,10 @@ var initScene = function () {
   // Scene creation.
   scene = new BABYLON.Scene(engine);
 
+  // Add some fog to the scene.
+  scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+  scene.fogDensity = 0.01;
+
   // Create camera.
   camera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(0, 5, -30), scene);
   camera.setTarget(new BABYLON.Vector3(0, 0, 20));
