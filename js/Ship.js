@@ -66,3 +66,16 @@ Ship.prototype._initMovement = function () {
   }]);
 };
 
+
+// Move the ship and camera.
+Ship.prototype.move = function () {
+  if (ship.moveRight) {
+    ship.position.x += 1;
+    camera.position.x += 1;
+  }
+  if (ship.moveLeft) {
+    ship.position.x += -1;
+    camera.position.x += -1;
+  }
+};
+
