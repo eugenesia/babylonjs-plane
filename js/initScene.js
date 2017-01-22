@@ -76,3 +76,42 @@ var initScene = function () {
   ship = new Ship(1, scene);
 };
 
+
+/**
+ * Generate a random number. Stolen from the Babylon source code.
+ */
+var randomNumber = function (min, max) {
+  if (min == max) {
+    return (min);
+  }
+  var random = Math.random();
+  return ((random * (max - min)) + min);
+};
+
+
+/**
+ * Create a random box in front of the camera.
+ */
+var box = function () {
+  var minZ = camera.position.z + 500;
+  var maxZ = camera.position.z + 1500;
+  var minX = camera.position.x - 100, maxX = camera.position.x + 100;
+  var minSize = 2, maxSize = 10;
+
+  var randomX, randomZ, randomSize;
+
+  randomX = randomNumber(minX, maxX);
+  randomZ = randomNumber(minZ, maxZ);
+  randomSize = randomNumber(minSize, maxSize);
+
+  var b = BABYLON.Mesh.CreateBox('bb', randomSize, scene);
+
+  b.scaling.x = randomNumber(0.5, 1.5);
+  b.scaling.y = randomNumber(4, 8);
+  b.scaling.z = randomNumber(2, 3);
+
+  b.position.x = randomX;
+  b.position.y = b.scaling.y/2;
+  b.position.z = randomZ;
+};
+
