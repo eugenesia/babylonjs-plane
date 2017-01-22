@@ -132,5 +132,29 @@ var box = function () {
   // Params: trigger, object to modify, attribute of object to modify.
   var sba = new BABYLON.SwitchBooleanAction(trigger, ship, 'killed');
   b.actionManager.registerAction(sba);
+
+
+  // condition: ammo > 0
+  var condition = new BABYLON.ValueCondition(b.actionManager, ship, 'ammo', 0,
+    BABYLON.ValueCondition.IsGreater);
+
+  // Destroy a building if user clicks on it.
+  var onpickAction = new BABYLON.ExecuteCodeAction(
+    BABYLON.ActionManager.OnPickTrigger,
+    function (evt) {  
+      if (evt.meshUnderPointer) {
+        // Find the clicked mesh.
+        var meshClicked = evt.meshUnderPointer;
+        // Destroy it.
+        meshClicked.dispose();
+        // Reduce the number of ammo by one.
+        ship.ammo -= 1;
+        // Update the ammo label.
+        ship.sendEvent();
+      }
+    },
+    condition);
+
+  b.actionManager.registerAction(onpickAction);
 };
 
