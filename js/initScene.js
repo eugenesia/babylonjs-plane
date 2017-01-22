@@ -31,7 +31,15 @@ var onload = function () {
 
   // Render function.
   engine.runRenderLoop(function () {
-    // Nothing right now except rendering the scene.
+    if (! ship.killed) {
+      ship.move();
+
+      // Move everything forward every frame.
+      camera.position.z += ship.speed;
+      ship.position.z += ship.speed;
+      ground.position.z += ship.speed;
+    }
+
     scene.render();
   });
 }

@@ -26,6 +26,9 @@ var Ship = function(size, scene) {
   this.speed = 3;
   this.moveLeft = false;
   this.moveRight = false;
+
+  // Initialise movement on keypress.
+  this._initMovement();
 }
 
 // Our object is a BABYLON.Mesh
